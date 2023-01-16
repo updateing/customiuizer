@@ -198,6 +198,7 @@ public class MainModule extends XposedModule {
                 MainModule.resHooks.setObjectReplacement("android", "bool", "config_allowAllRotations", MainModule.mPrefs.getStringAsInt("system_allrotations2", 1) == 2);
             }
             if (mPrefs.getStringAsInt("system_rotateanim", 1) > 1) System.RotationAnimationRes();
+            if (mPrefs.getBoolean("various_remove_installer_restriction")) Various.RemoveInstallerRestrictionHook(lpparam);
             watchPreferenceChange();
         }
 
