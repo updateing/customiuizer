@@ -1135,4 +1135,6 @@
     <string name="system_show_step_count_title">显示步数</string>
     <string name="various_remove_apk_handler_restriction_title">去除对APK文件打开方式的限制</string>
     <string name="various_remove_apk_handler_restriction_summ">若要使用其他安装器，需另外手动删除MIUI的安装器</string>
+    <string name="various_use_android_installer_title">使用Android软件包安装器</string>
+    <string name="various_use_android_installer_summ">使用Android原生软件包安装器取代MIUI安装器</string>
 </resources>

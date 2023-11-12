@@ -4,7 +4,7 @@ import static name.monwf.customiuizer.mods.GlobalActions.ACTION_PREFIX;
 import static name.monwf.customiuizer.mods.utils.XposedHelpers.findClass;
 import static name.monwf.customiuizer.mods.utils.XposedHelpers.findClassIfExists;
 
-import android.annotation.SuppressLint;
+import android.provider.Settings;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
@@ -22,7 +22,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
-import android.content.res.TypedArray;
 import android.database.ContentObserver;
 import android.graphics.Canvas;
 import android.graphics.Rect;
@@ -34,12 +33,8 @@ import android.os.Looper;
 import android.os.Message;
 import android.os.SystemClock;
 import android.os.UserHandle;
-import android.provider.Settings;
-import android.text.Spannable;
-import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
-import android.text.style.RelativeSizeSpan;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
@@ -48,11 +43,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.LinearLayout;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -1115,6 +1107,25 @@ public class Various {
 			@Override
 			protected void before(final BeforeHookCallback param) throws Throwable {
 				param.returnAndSkip(param.getArgs()[5]);
+			}
+		});
+	}
+
+	public static void UseAndroidInstallerHook(SystemServerLoadedParam lpparam) {
+		ModuleHelper.findAndHookMethod("com.android.server.pm.PackageManagerServiceImpl", lpparam.getClassLoader(), "updateDefaultPkgInstallerLocked", new MethodHook() {
+			@Override
+			protected void before(final BeforeHookCallback param) throws Throwable {
+				Object thiz = param.getThisObject();
+				Object mPkgSettings = XposedHelpers.getObjectField(thiz, "mPkgSettings");
+				Object mSettings = XposedHelpers.getObjectField(mPkgSettings, "mPackages");
+
+				Object miuiInstaller = XposedHelpers.callMethod(mSettings, "get", "com.miui.packageinstaller");
+				Object androidInstaller = XposedHelpers.callMethod(mSettings, "get", "com.android.packageinstaller");
+				Object googleInstaller = XposedHelpers.callMethod(mSettings, "get", "com.google.android.packageinstaller");
+
+				if ((googleInstaller != null || androidInstaller != null) && miuiInstaller != null) {
+					XposedHelpers.callMethod(mSettings, "remove", "com.miui.packageinstaller");
+				}
 			}
 		});
 	}
