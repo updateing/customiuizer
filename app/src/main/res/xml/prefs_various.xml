@@ -33,6 +33,11 @@
 		android:defaultValue="false" />
 
 	<name.monwf.customiuizer.prefs.CheckBoxPreferenceEx
+		android:key="pref_key_various_disable_themereceiver"
+		android:title="@string/various_disable_themereceiver"
+		android:defaultValue="false" />
+
+	<name.monwf.customiuizer.prefs.CheckBoxPreferenceEx
 		android:key="pref_key_various_disable_access_devicelogs"
 		android:title="@string/various_disable_access_devicelogs_title"
 		android:defaultValue="false" />

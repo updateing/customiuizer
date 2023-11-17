@@ -1130,6 +1130,17 @@ public class Various {
 		});
 	}
 
+	public static void DisableThemeReceiverHook(SystemServerLoadedParam lpparam) {
+		// I just want to use Roboto VF and Noto Sans CJK VF without disabling MIUI optimization,
+		// why do I have to mess around with DRM?
+		ModuleHelper.findAndHookMethod("miui.drm.ThemeReceiver", lpparam.getClassLoader(), "onReceive", Context.class, Intent.class, new MethodHook() {
+			@Override
+			protected void before(final BeforeHookCallback param) throws Throwable {
+				param.returnAndSkip(null);
+			}
+		});
+	}
+
 	public static void GboardPaddingHook(PackageLoadedParam lpparam) {
 		ModuleHelper.findAndHookMethod(findClass("android.os.SystemProperties", lpparam.getClassLoader()), "get", String.class, new MethodHook() {
 			@Override

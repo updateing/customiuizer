@@ -1137,4 +1137,5 @@
     <string name="various_remove_apk_handler_restriction_summ">若要使用其他安装器，需另外手动删除MIUI的安装器</string>
     <string name="various_use_android_installer_title">使用 Android 软件包安装器</string>
     <string name="various_use_android_installer_summ">使用 Android 原生的软件包安装器取代 MIUI 安装器</string>
+    <string name="various_disable_themereceiver">禁用 ThemeReceiver</string>
 </resources>

@@ -1175,4 +1175,5 @@
     <string name="various_remove_apk_handler_restriction_title">Remove restriction on APK file handlers</string>
     <string name="various_use_android_installer_title">Use Android Package Installer</string>
     <string name="various_use_android_installer_summ">Replace MIUI package installer with the stock Android one</string>
+    <string name="various_disable_themereceiver">Disable ThemeReceiver</string>
 </resources>
